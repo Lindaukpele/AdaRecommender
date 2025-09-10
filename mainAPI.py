@@ -36,6 +36,12 @@ app = FastAPI(lifespan=lifespan)
 
 
 # 🔹 Routes
+
+@app.get("/")
+def root():
+    return {"message": "Welcome to the Item API"}
+
+
 @app.post("/items/")
 def create_item(item: Item):
     with Session(engine) as session:
