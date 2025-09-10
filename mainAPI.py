@@ -39,7 +39,13 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to the Item API"}
+    return {"message": "Welcome to the API"}
+
+@app.get("/items/", response_model=List[Item])
+def read_items():
+    with Session(engine) as session:
+        items = session.exec(select(Item)).all()
+        return items
 
 
 @app.post("/items/")
