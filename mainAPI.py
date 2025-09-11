@@ -57,8 +57,20 @@ def create_user(user: User):
         return user
 
 
-@app.get("/users/", response_model=List[User])
+@app.get("/users/")
 def read_users():
     with Session(engine) as session:
         users = session.exec(select(User)).all()
-        return users
+        # Reorder fields so id is first
+        result = [
+            {
+                "id": user.id,
+                "name": user.name,
+                "agency": user.agency,
+                "location": user.location,
+                "genres": user.genres,
+                "website": user.website
+            }
+            for user in users
+        ]
+        return result
