@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from agent_model import build_model_if_needed, recommend_agents
 
-app = FastAPI(title="Literary Agent Recommender")
+app = FastAPI(title="AdaAnalytics Literary Agent Recommender")
 
 # Automatically build or load the model
 model_data = build_model_if_needed("literary_agents_location1.csv", "agent_recommender_model.pkl")
